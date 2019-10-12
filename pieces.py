@@ -464,3 +464,4 @@ def verifyCube(Cube):
 	print('Pieces:', verifyPieces(Cube))
 	print('Corners:', verifyCorners(Cube))
 	print('Edges:', verifyEdges(Cube))
+	
