@@ -18,3 +18,4 @@ CubeCopy = copy.deepcopy(Cube)
 
 verifyCube(CubeCopy)
 printCube(Cube)
+
