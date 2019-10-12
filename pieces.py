@@ -2,66 +2,66 @@ from algorithms import *
 from moves import *
 from cubeinput import printCube
 
-# Cantos #
+# Corners #
 
-CGWO = [1, 4, 5] # Verde, Branco, Laranja #
-CGWR = [1, 2, 5] # Verde, Branco, Vermelho #
-CBWO = [3, 4, 5] # Azul, Branco, Laranja #
-CBWR = [2, 3, 5] # Azul, Branco, Vermelho #
+CGWO = (1, 4, 5) # Green, White, Orange #
+CGWR = (1, 2, 5) # Green, White, Red #
+CBWO = (3, 4, 5) # Blue, White, Orange #
+CBWR = (2, 3, 5) # Blue, White, Red #
 
-CGYO = [1, 4, 6] # Verde, Amarelo, Laranja #
-CGYR = [1, 2, 6] # Verde, Amarelo, Vermelho #
-CBYO = [3, 4, 6] # Azul, Amarelo, Laranja #
-CBYR = [2, 3, 6] # Azul, Amarelo, Vermelho #
+CGYO = (1, 4, 6) # Green, Yellow, Orange #
+CGYR = (1, 2, 6) # Green, Yellow, Red #
+CBYO = (3, 4, 6) # Blue, Yellow, Orange #
+CBYR = (2, 3, 6) # Blue, Yellow, Red #
 
-AllC = [CGWO, CGWR, CBWO, CBWR, CGYO, CGYR, CBYO, CBYR] # All Corners #
+AllC = (CGWO, CGWR, CBWO, CBWR, CGYO, CGYR, CBYO, CBYR) # All Corners Pieces #
 
-# Posiçao (x,y,z) dos cantos #
-		   #z#		  #x#		 #y#
-P125 = [[0, 0, 2], [1, 0, 0], [4, 2, 2]]
-P126 = [[0, 2, 2], [1, 2, 0], [5, 0, 2]]																
-P145 = [[0, 0, 0], [3, 0, 2], [4, 2, 0]]
-P146 = [[0, 2, 0], [3, 2, 2], [5, 0, 0]]
-P325 = [[2, 0, 0], [1, 0, 2], [4, 0, 2]]
-P326 = [[2, 2, 0], [1, 2, 2], [5, 2, 2]] 
-P345 = [[2, 0, 2], [3, 0, 0], [4, 0, 0]]
-P346 = [[2, 2, 2], [3, 2, 0], [5, 2, 0]]
+# Corners position (x,y,z) #
+		  # z #		 # x #		# y #
+P125 = ((0, 0, 2), (1, 0, 0), (4, 2, 2))
+P126 = ((0, 2, 2), (1, 2, 0), (5, 0, 2))																
+P145 = ((0, 0, 0), (3, 0, 2), (4, 2, 0))
+P146 = ((0, 2, 0), (3, 2, 2), (5, 0, 0))
+P325 = ((2, 0, 0), (1, 0, 2), (4, 0, 2))
+P326 = ((2, 2, 0), (1, 2, 2), (5, 2, 2)) 
+P345 = ((2, 0, 2), (3, 0, 0), (4, 0, 0))
+P346 = ((2, 2, 2), (3, 2, 0), (5, 2, 0))
 
-AllCP = [P125, P126, P145, P146, P325, P326, P345, P346] # Corners position 'x , y , z' #
+AllCP = (P125, P126, P145, P146, P325, P326, P345, P346) # Corners position in the cube #
 
-# Meios #
+# Edges #
 
-EWG = [1, 5] # Verde, Branco #
-EWR = [2, 5] # Vermelho, Branco #
-EWB = [3, 5] # Azul, Branco #
-EWO = [4, 5] # Laranja, Branco #
+EWG = (1, 5) # Green, White #
+EWR = (2, 5) # Red, White #
+EWB = (3, 5) # Blue, White #
+EWO = (4, 5) # Orange, White #
 
-ERB = [2, 3] # Vermelho, Azul #
-EOB = [3, 4] # Laranja, Azul #
-ERG = [1, 2] # Vermelho, Verde #
-EOG = [1, 4] # Laranja, Verde #
+ERB = (2, 3) # Red, Blue #
+EOB = (3, 4) # Orange, Blue #
+ERG = (1, 2) # Red, Green #
+EOG = (1, 4) # Orange, Green #
 
-EYG = [1, 6] # Verde, Amarelo #
-EYR = [2, 6] # Vermelho, Amarelo #
-EYB = [3, 6] # Azul, Amarelo #
-EYO = [4, 6] # Laranja, Amarelo #
+EYG = (1, 6) # Green, Yellow #
+EYR = (2, 6) # Red, Yellow #
+EYB = (3, 6) # Blue, Yellow #
+EYO = (4, 6) # Orange, Yellow #
 
-AllE = [EWG, EWR, EWB, EWO, ERB, EOB, ERG, EOG, EYG, EYR, EYB, EYO] # All Edges #
+AllE = (EWG, EWR, EWB, EWO, ERB, EOB, ERG, EOG, EYG, EYR, EYB, EYO) # All Edges Pieces #
 
-P12 = [[0, 1, 2], [1, 1, 0]] ###0      # Top
-P14 = [[0, 1, 0], [3, 1, 2]] ###1      ## Bottom
-P15 = [[0, 0, 1], [4, 2, 1]] #2        ### Middle
-P16 = [[0, 2, 1], [5, 0, 1]] ##3
-P23 = [[1, 1, 2], [2, 1, 0]] ###4
-P25 = [[1, 0, 1], [4, 1, 2]] #5
-P26 = [[1, 2, 1], [5, 1, 2]] ##6
-P34 = [[2, 1, 2], [3, 1, 0]] ###7
-P35 = [[2, 0, 1], [4, 0, 1]] #8
-P36 = [[2, 2, 1], [5, 2, 1]] ##9
-P45 = [[3, 0, 1], [4, 1, 0]] #10
-P46 = [[3, 2, 1], [5, 1, 0]] ##11
+P12 = ((0, 1, 2), (1, 1, 0)) ### 0      # Top
+P14 = ((0, 1, 0), (3, 1, 2)) ### 1      ## Bottom
+P15 = ((0, 0, 1), (4, 2, 1)) # 2        ### Middle
+P16 = ((0, 2, 1), (5, 0, 1)) ## 3
+P23 = ((1, 1, 2), (2, 1, 0)) ### 4
+P25 = ((1, 0, 1), (4, 1, 2)) # 5
+P26 = ((1, 2, 1), (5, 1, 2)) ## 6
+P34 = ((2, 1, 2), (3, 1, 0)) ### 7
+P35 = ((2, 0, 1), (4, 0, 1)) # 8
+P36 = ((2, 2, 1), (5, 2, 1)) ## 9
+P45 = ((3, 0, 1), (4, 1, 0)) # 10
+P46 = ((3, 2, 1), (5, 1, 0)) ## 11
 
-AllEP = [P12, P14, P15, P16, P23, P25, P26, P34, P35, P36, P45, P46] # Edges position 'x , y , z' #
+AllEP = (P12, P14, P15, P16, P23, P25, P26, P34, P35, P36, P45, P46) # Edges position in the cube #
 
 def mSort(lista):
 
@@ -76,73 +76,99 @@ def mSort(lista):
 				lista[k] = a
 
 	return lista
+# Return the position of a corner #
+def getCornerPos(color, Cube):
 
+	p = []
+
+	for i in AllCP:
+
+		l = []
+
+		for j in i:
+
+			a = j[0]
+			b = j[1]
+			c = j[2]
+
+			l.append(Cube[a][b][c])
+
+		if (mSort(l) == list(color)):
+
+			return i
+# Return the cornor in a position #
+def getCornerColor(pos, Cube):
+
+	c = []
+
+	for i in pos:
+
+		c.append(Cube[i[0]][i[1]][i[2]])
+
+	return tuple(mSort(c))
+# Return the position of a edge #
+def getEdgesPos(color, Cube):
+
+	p = []
+
+	for i in AllEP:
+
+		l = []
+
+		for j in i:
+
+			a = j[0]
+			b = j[1]
+			c = j[2]
+
+			l.append(Cube[a][b][c])
+
+		if (mSort(l) == list(color)):
+
+			return i
+# Return the edge in a position #
+def getEdgesColor(pos, Cube):
+
+	c = []
+
+	for i in pos:
+
+		c.append(Cube[i[0]][i[1]][i[2]])
+
+	return tuple(mSort(c))
+# Verify if all pieces exist #
 def verifyPieces(Cube):
 
-	C125 = [Cube[0][0][2], Cube[1][0][0], Cube[4][2][2]] # Verde, Branco, Vermelho  #
-	C126 = [Cube[0][2][2], Cube[1][2][0], Cube[5][0][2]] # Verde, Amarelo, Vermelho #																
-	C145 = [Cube[0][0][0], Cube[3][0][2], Cube[4][2][0]] # Verde, Branco, Laranja   #
-	C146 = [Cube[0][2][0], Cube[3][2][2], Cube[5][0][0]] # Verde, Amarelo, Laranja  #
-	C235 = [Cube[1][0][2], Cube[2][0][0], Cube[4][0][2]] # Azul, Branco, Vermelho   #
-	C236 = [Cube[1][2][2], Cube[2][2][0], Cube[5][2][2]] # Azul, Amarelo, Vermelho  # 
-	C345 = [Cube[2][0][2], Cube[3][0][0], Cube[4][0][0]] # Azul, Branco, Laranja    #
-	C346 = [Cube[2][2][2], Cube[3][2][0], Cube[5][2][0]] # Azul, Amarelo, Laranja   #
-														 #          Pos 			#
+	v = 0
 
-										 # 		 Pos 		 #
-	E12 = [Cube[0][1][2], Cube[1][1][0]] # Verde, Vermelho   #
-	E14 = [Cube[0][1][0], Cube[3][1][2]] # Verde, Laranja    #
-	E15 = [Cube[0][0][1], Cube[4][2][1]] # Verde, Branco     #
-	E16 = [Cube[0][2][1], Cube[5][0][1]] # Verde, Amarelo    #
-	E23 = [Cube[1][1][2], Cube[2][1][0]] # Vermelho, Azul    #
-	E25 = [Cube[1][0][1], Cube[4][1][2]] # Vermelho, Branco  #
-	E26 = [Cube[1][2][1], Cube[5][1][2]] # Vermelho, Amarelo #
-	E34 = [Cube[2][1][2], Cube[3][1][0]] # Laranja, Azul     #
-	E35 = [Cube[2][0][1], Cube[4][0][1]] # Azul, Branco 	 #
-	E36 = [Cube[2][2][1], Cube[5][2][1]] # Azul, Amarelo	 #
-	E45 = [Cube[3][0][1], Cube[4][1][0]] # Laranja, Branco 	 #
-	E46 = [Cube[3][2][1], Cube[5][1][0]] # Laranja, Amarelo  #
-		
-	AllCC = [C125, C126, C145, C146, C235, C236, C345, C346] # All corners coordinates #
-	
-	AllEC = [E12, E14, E15, E16, E23, E25, E26, E34, E35, E36, E45, E46] # All edges coordinates #
+	c = []
 
-	countc = 0
-	counte = 0
+	for i in AllCP:
 
-	for i in range(0, len(AllCC)):
+		c.append(getCornerColor(i,Cube))
 
-		AllCC[i] = mSort(AllCC[i])
+	if (mSort(c) == mSort(list(AllC))):
 
-	for i in range(0, len(AllEC)):
+		v += 1
 
-		AllEC[i] = mSort(AllEC[i])
+	e = []
 
-	# Verify Corners #
-	for i in range(0, len(AllCC)):
+	for i in AllEP:
 
-		for j in range(0, len(AllC)):
+		e.append(getEdgesColor(i,Cube))
 
-			if (AllC[j] == AllCC[i]):
+	if (mSort(e) == mSort(list(AllE))):
 
-				countc += 1
-	# Verify Edges #
-	for i in range(0, len(AllEC)):
+		v += 1
 
-		for j in range(0, len(AllE)):
-
-			if (AllE[j] == AllEC[i]):
-
-				counte += 1
-
-	if (counte == 12 and countc == 8):
+	if (v == 2):
 
 		return True
 
 	else:
 
 		return False
-
+# Return all corners orientation #
 def getCornersOrientation(Cube):
 
 	orientation = []
@@ -196,7 +222,7 @@ def getCornersOrientation(Cube):
 	orientation.append(botton)
 
 	return orientation
-
+# Verify if all corners can be orientate #
 def verifyCorners(Cube):
 
 	correct = [[1,1,1,1],[1,1,1,1]]
@@ -303,7 +329,7 @@ def verifyCorners(Cube):
 				down(Cube)
 
 	return False
-
+# Return all edges orientation #
 def getEdgesOrientation(Cube):
 
 	orientation = []
@@ -418,7 +444,7 @@ def getEdgesOrientation(Cube):
 	orientation.append(bottom)
 	
 	return orientation
-
+# Verify if all edges can be orientate #
 def verifyEdges(Cube):
 
 	orientation = getEdgesOrientation(Cube)
@@ -432,10 +458,9 @@ def verifyEdges(Cube):
 	else:
 
 		return False
-
+# Verify the Pieces, Corners and Edges #
 def verifyCube(Cube):
 
 	print('Pieces:', verifyPieces(Cube))
 	print('Corners:', verifyCorners(Cube))
 	print('Edges:', verifyEdges(Cube))
-

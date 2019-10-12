@@ -3,7 +3,6 @@ from moves import *
 from pieces import *
 from cubeinput import *
 from algorithms import *
-from ThistlethwaitesAlgorithm import *
 
 print("""1 -> Verde
 2 -> Vermelho
