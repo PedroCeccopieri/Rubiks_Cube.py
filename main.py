@@ -1,8 +1,9 @@
-import copy
 from moves import *
 from pieces import *
-from cubeinput import *
 from algorithms import *
+from verifier import verifyCube
+
+from cubeClass import Cube
 
 print("""1 -> Verde
 2 -> Vermelho
@@ -13,9 +14,9 @@ print("""1 -> Verde
 A orientação sempre é com a face verde para frente e a branca para cima
 """)
 
-Cube = getCube()
-CubeCopy = copy.deepcopy(Cube)
+cube = Cube()
 
-verifyCube(CubeCopy)
-printCube(Cube)
-
+verifyCube(cube)
+#cube.printCube()
+cube.scramble()
+cube.printColors()

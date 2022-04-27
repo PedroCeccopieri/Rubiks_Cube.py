@@ -1,104 +1,81 @@
 from moves import *
-from cubeinput import printCube
 
-r, l, u, d, f, b = 'r', 'l', 'u', 'd', 'f', 'b'
-rl, ll, ul, dl, fl, bl = "r'", "l'", "u'", "d'", "f'", "b'"
-r2, l2, u2, d2, f2, b2 = 'r2', 'l2', 'u2', 'd2', 'f2', 'b2'
+def pllU(cube):
 
-def pllU(Cube):
+	mvs = "R' U R' U' R' U' R' U R U R2"
+	cube.read(mvs.split(' '))
 
-	mvs = [rl,u,rl,ul,rl,ul,rl,u,r,u,r2]
+def pllUP(cube):
 
-	read(mvs, Cube)
+	mvs = "R2 U' R' U' R U R U R U' R"
+	cube.read(mvs.split(' '))
 
-def pllUP(Cube):
+def pllUDown(cube):
 
-	mvs = [r2,ul,rl,ul,r,u,r,u,r,ul,r]
+	mvs = "L' D L' D' L' D' L' D L D L2"
+	cube.read(mvs.split(' '))
 
-	read(mvs, Cube)
+def pllUPDown(cube):
 
-def pllDownU(Cube):
+	mvs = "L2 D' L' D' L D L D L D' L"
+	cube.read(mvs.split(' '))
 
-	mvs = [ll,d,ll,dl,ll,dl,ll,d,l,d,l2]
+def sune(cube):
 
-	read(mvs, Cube)
+	mvs = "R U R' U R U2 R'"
+	cube.read(mvs.split(' '))
 
-def pllDownUP(Cube):
+def suneO(cube):
 
-	mvs = [l2,dl,ll,dl,l,d,l,d,l,dl,l]
+	mvs = "R U R' U R U2 R' U R2 U' R' U' R U R U R U' R U"
+	cube.read(mvs.split(' '))
 
-	read(mvs, Cube)
+def leftSune(cube):
 
-def sune(Cube):
+	mvs = "L' U' L U' L' U2 L"
+	cube.read(mvs.split(' '))
 
-	mvs = [r,u,rl,u,r,u2,rl]
+def leftSuneO(cube):
 
-	read(mvs, Cube)
+	mvs = "L' U' L U' L' U2 L U' R' U R' U' R' U' R' U R U R2 U'"
+	cube.read(mvs.split(' '))
 
-def suneO(Cube):
+def antiSune(cube):
 
-	sune(Cube)
-	up(Cube)
-	pllUP(Cube)
-	up(Cube)
+	mvs = "R U2 R' U' R U' R'"
+	cube.read(mvs.split(' '))
 
-def leftSune(Cube):
+def leftAntiSune(cube):
 
-	mvs = [ll,ul,l,ul,ll,u2,l]
+	mvs = "L' U2 L U L' U L"
+	cube.read(mvs.split(' '))
 
-	read(mvs, Cube)
+def downSune(cube):
 
-def leftSuneO(Cube):
+	mvs = "L D L' D L D2 L'"
+	cube.read(mvs.split(' '))
 
-	leftSune(Cube)
-	upPrime(Cube)
-	pllU(Cube)
-	upPrime(Cube)
+def downSuneO(cube):
 
-def antiSune(Cube):
+	mvs = "L D L' D L D2 L' D L2 D' L' D' L D L D L D' L D"
+	cube.read(mvs.split(' '))
 
-	mvs = [r,u2,rl,ul,r,ul,rl]
+def downLeftSune(cube):
 
-	read(mvs, Cube)
+	mvs = "R' D' R D' R D2 R"
+	cube.read(mvs.split(' '))
 
-def leftAntiSune(Cube):
+def downLeftSuneO(cube):
 
-	mvs = [ll,u2,l,u,ll,u,l]
+	mvs = "R' D' R D' R D2 R D' L' D L' D' L' D' L' D L D L2 D'"
+	cube.read(mvs.split(' '))
 
-	read(mvs, Cube)
+def eCase(cube):
 
-def downSune(Cube):
+	mvs = "R U R' U R U2 R' L' U' L U' L' U2 L"
+	cube.read(mvs.split(' '))
 
-	mvs = [l,d,ll,d,l,d2,ll]
+def fCase(cube):
 
-	read(mvs, Cube)
-
-def downSuneO(Cube):
-
-	downSune(Cube)
-	down(Cube)
-	pllDownUP(Cube)
-	down(Cube)
-
-def downLeftSune(Cube):
-
-	mvs = [rl,dl,r,dl,rl,d2,r]
-
-	read(mvs, Cube)
-
-def downLeftSuneO(Cube):
-
-	downLeftSune(Cube)
-	downPrime(Cube)
-	pllDownU(Cube)
-	downPrime(Cube)
-
-def eCase(Cube):
-
-	sune(Cube)
-	leftSune(Cube)
-
-def fCase(Cube):
-
-	leftAntiSune(Cube)
-	antiSune(Cube)
+	mvs = "L' U2 L U L' U L R U2 R' U' R U' R'"
+	cube.read(mvs.split(' '))

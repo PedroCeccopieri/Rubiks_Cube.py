@@ -1,8 +1,3 @@
-from cubeinput import printCube
-import random
-
-move = ('r', 'l', 'u', 'd', 'f', 'b', 'r2', 'l2', 'u2', 'd2', 'f2', 'b2', "r'", "l'", "u'", "d'", "f'", "b'")
-
 def rotateFace(x, Cube):
 
 	aux = Cube[x][0][2]
@@ -153,41 +148,221 @@ def back(Cube):
 
 	rotateFace(2, Cube)
 
+def middle(Cube):
+	
+	aux = Cube[4][0][1]
+	aux2 = Cube[4][1][1]
+	aux3 = Cube[4][2][1]
+
+	Cube[4][0][1] = Cube[2][2][1]
+	Cube[4][1][1] = Cube[2][1][1]
+	Cube[4][2][1] = Cube[2][0][1]
+
+	Cube[2][2][1] = Cube[5][0][1]
+	Cube[2][1][1] = Cube[5][1][1]
+	Cube[2][0][1] = Cube[5][2][1]
+
+	Cube[5][0][1] = Cube[0][0][1]
+	Cube[5][1][1] = Cube[0][1][1]
+	Cube[5][2][1] = Cube[0][2][1]
+
+	Cube[0][0][1] = aux
+	Cube[0][1][1] = aux2
+	Cube[0][2][1] = aux3
+
+def standing(Cube):
+
+	aux = Cube[4][1][0]
+	aux2 = Cube[4][1][1]
+	aux3 = Cube[4][1][2]
+
+	Cube[4][1][0] = Cube[3][2][1]
+	Cube[4][1][1] = Cube[3][1][1]
+	Cube[4][1][2] = Cube[3][0][1]
+
+	Cube[3][0][1] = Cube[5][1][0]
+	Cube[3][1][1] = Cube[5][1][1]
+	Cube[3][2][1] = Cube[5][1][2]
+
+	Cube[5][1][0] = Cube[1][2][1]
+	Cube[5][1][1] = Cube[1][1][1]
+	Cube[5][1][2] = Cube[1][0][1]
+
+	Cube[1][0][1] = aux
+	Cube[1][1][1] = aux2
+	Cube[1][2][1] = aux3
+
+def equatorial(Cube):
+	
+	aux = Cube[0][1]
+
+	Cube[0][1] = Cube[3][1]
+
+	Cube[3][1] = Cube[2][1]
+
+	Cube[2][1] = Cube[1][1]
+
+	Cube[1][1] = aux
+
+def rotateCubeX(Cube):
+
+	aux = Cube[0]
+
+	Cube[0] = Cube[5]
+	Cube[5] = Cube[2]
+	Cube[2] = Cube[4]
+	Cube[4] = aux
+
+	rotateFace(1,Cube)
+	rotateFacePrime(3,Cube)
+	for i in range(2):
+		rotateFace(2,Cube)
+		rotateFace(5,Cube)
+
+def rotateCubeY(Cube):
+
+	aux = Cube[0]
+
+	Cube[0] = Cube[1]
+	Cube[1] = Cube[2]
+	Cube[2] = Cube[3]
+	Cube[3] = aux
+
+	rotateFace(4,Cube)
+	rotateFacePrime(5,Cube)
+
+def rotateCubeZ(Cube):
+
+	aux = Cube[4]
+
+	Cube[4] = Cube[3]
+	Cube[3] = Cube[5]
+	Cube[5] = Cube[1]
+	Cube[1] = aux
+
+	for i in [0,1,3,4,5]:
+		rotateFace(i,Cube)
+	rotateFacePrime(2,Cube)
+
+def rightWide(Cube):
+
+	right(Cube)
+	middlePrime(Cube)
+
+def leftWide(Cube):
+
+	left(Cube)
+	middle(Cube)
+
+def upWide(Cube):
+
+	up(Cube)
+	equatorialPrime(Cube)
+
+def downWide(Cube):
+
+	down(Cube)
+	equatorial(Cube)
+
+def frontWide(Cube):
+
+	front(Cube)
+	standing(Cube)
+
+def backWide(Cube):
+
+	back(Cube)
+	standingPrime(Cube)
+
 def right2(Cube):
 
-	for i in range (0, 2):
-
+	for i in range (2):
 		right(Cube)
 
 def left2(Cube):
 
-	for i in range (0, 2):
-
+	for i in range (2):
 		left(Cube)
 
 def up2(Cube):
 
-	for i in range (0, 2):
-
+	for i in range (2):
 		up(Cube)
 
 def down2(Cube):
 
-	for i in range (0, 2):
-
+	for i in range (2):
 		down(Cube)
 
 def front2(Cube):
 
-	for i in range (0, 2):
-
+	for i in range (2):
 		front(Cube)
 
 def back2(Cube):
 
-	for i in range (0, 2):
-
+	for i in range (2):
 		back(Cube)
+
+def middle2(Cube):
+	
+	for i in range(2):
+		middle(Cube)
+
+def standing2(Cube):
+	
+	for i in range(2):
+		standing(Cube)
+
+def equatorial2(Cube):
+	
+	for i in range(2):
+		equatorial(Cube)
+
+def rotateCubeX2(Cube):
+
+	for i in range(2):
+		rotateCubeX(Cube)
+
+def rotateCubeY2(Cube):
+
+	for i in range(2):
+		rotateCubeY(Cube)
+
+def rotateCubeZ2(Cube):
+
+	for i in range(2):
+		rotateCubeZ(Cube)
+
+def rightWide2(Cube):
+
+	for i in range(2):
+		rightWide(Cube)
+
+def leftWide2(Cube):
+
+	for i in range(2):
+		leftWide(Cube)
+
+def upWide2(Cube):
+
+	for i in range(2):
+		upWide(Cube)
+
+def downWide2(Cube):
+
+	for i in range(2):
+		downWide(Cube)
+
+def frontWide2(Cube):
+
+	for i in range(2):
+		frontWide(Cube)
+
+def backWide2(Cube):
+
+	for i in range(2):
+		backWide(Cube)
 
 def rightPrime(Cube):
 
@@ -307,183 +482,128 @@ def backPrime(Cube):
 
 	rotateFacePrime(2, Cube)
 
-def read(mvs, Cube):
+def middlePrime(Cube):
+	
+	aux = Cube[4][0][1]
+	aux2 = Cube[4][1][1]
+	aux3 = Cube[4][2][1]
 
-	for i in range (0, len(mvs)):
+	Cube[4][0][1] = Cube[0][0][1]
+	Cube[4][1][1] = Cube[0][1][1]
+	Cube[4][2][1] = Cube[0][2][1]
 
-		if (mvs[i].lower() == 'r'):
+	Cube[0][0][1] = Cube[5][0][1]
+	Cube[0][1][1] = Cube[5][1][1]
+	Cube[0][2][1] = Cube[5][2][1]
 
-			right(Cube)
+	Cube[5][0][1] = Cube[2][2][1]
+	Cube[5][1][1] = Cube[2][1][1]
+	Cube[5][2][1] = Cube[2][0][1]
 
-		elif (mvs[i].lower() == 'l'):
+	Cube[2][2][1] = aux
+	Cube[2][1][1] = aux2
+	Cube[2][0][1] = aux3
 
-			left(Cube)
+def standingPrime(Cube):
+		
+	aux = Cube[4][1][0]
+	aux2 = Cube[4][1][1]
+	aux3 = Cube[4][1][2]
 
-		elif (mvs[i].lower() == 'u'):
+	Cube[4][1][0] = Cube[1][0][1]
+	Cube[4][1][1] = Cube[1][1][1]
+	Cube[4][1][2] = Cube[1][2][1]
 
-			up(Cube)
+	Cube[1][0][1] = Cube[5][1][2]
+	Cube[1][1][1] = Cube[5][1][1]
+	Cube[1][2][1] = Cube[5][1][0]
 
-		elif (mvs[i].lower() == 'd'):
+	Cube[5][1][0] = Cube[3][0][1]
+	Cube[5][1][1] = Cube[3][1][1]
+	Cube[5][1][2] = Cube[3][2][1]
 
-			down(Cube)
+	Cube[3][2][1] = aux
+	Cube[3][1][1] = aux2
+	Cube[3][0][1] = aux3
 
-		elif (mvs[i].lower() == 'f'):
+def equatorialPrime(Cube):
+	
+	aux = Cube[0][1]
 
-			front(Cube)
+	Cube[0][1] = Cube[1][1]
 
-		elif (mvs[i].lower() == 'b'):
+	Cube[1][1] = Cube[2][1]
 
-			back(Cube)
+	Cube[2][1] = Cube[3][1]
 
-		elif (mvs[i].lower() == 'r2'):
+	Cube[3][1] = aux
 
-			right2(Cube)
+def rotateCubeXPrime(Cube):
 
-		elif (mvs[i].lower() == 'l2'):
+	aux = Cube[0]
 
-			left2(Cube)
+	Cube[0] = Cube[4]
+	Cube[4] = Cube[2]
+	Cube[2] = Cube[5]
+	Cube[5] = aux
 
-		elif (mvs[i].lower() == 'u2'):
+	rotateFace(3,Cube)
+	rotateFacePrime(1,Cube)
+	for i in range(2):
+		rotateFace(2,Cube)
+		rotateFace(4,Cube)
 
-			up2(Cube)
+def rotateCubeYPrime(Cube):
 
-		elif (mvs[i].lower() == 'd2'):
+	aux = Cube[0]
 
-			down2(Cube)
+	Cube[0] = Cube[3]
+	Cube[3] = Cube[2]
+	Cube[2] = Cube[1]
+	Cube[1] = aux
 
-		elif (mvs[i].lower() == 'f2'):
+	rotateFace(5,Cube)
+	rotateFacePrime(4,Cube)
 
-			front2(Cube)
+def rotateCubeZPrime(Cube):
 
-		elif (mvs[i].lower() == 'b2'):
+	aux = Cube[4]
 
-			back2(Cube)
+	Cube[4] = Cube[1]
+	Cube[1] = Cube[5]
+	Cube[5] = Cube[3]
+	Cube[3] = aux
 
-		elif (mvs[i].lower() == "r'"):
+	rotateFace(2,Cube)
+	for i in [0,1,3,4,5]:
+		rotateFacePrime(i,Cube)
 
-			rightPrime(Cube)
+def rightWidePrime(Cube):
 
-		elif (mvs[i].lower() == "l'"):
+	rightPrime(Cube)
+	middle(Cube)
 
-			leftPrime(Cube)
+def leftWidePrime(Cube):
 
-		elif (mvs[i].lower() == "u'"):
+	leftPrime(Cube)
+	middlePrime(Cube)
 
-			upPrime(Cube)
+def upWidePrime(Cube):
 
-		elif (mvs[i].lower() == "d'"):
+	upPrime(Cube)
+	equatorial(Cube)
 
-			downPrime(Cube)
+def downWidePrime(Cube):
 
-		elif (mvs[i].lower() == "f'"):
+	downPrime(Cube)
+	equatorialPrime(Cube)
 
-			frontPrime(Cube)
+def frontWidePrime(Cube):
 
-		elif (mvs[i].lower() == "b'"):
+	frontPrime(Cube)
+	standingPrime(Cube)
 
-			backPrime(Cube)
+def backWidePrime(Cube):
 
-def doMoves(Cube):
-
-	mvs = input('Insira os movimentos:').split(',')
-	a = True
-
-	while (a):
-
-		for i in range (0, len(mvs)):
-
-			if (mvs[i] not in move):
-
-				print ('Algum movimento inválido')
-				mvs = input('Insira os movimentos:').split(',')
-				break
-
-			else:
-
-				a = False
-
-	read(mvs, Cube)
-
-	printCube(Cube)
-
-def scramble(Cube):
-
-	def complete(mvs):
-
-		while not (len(mvs) >= 25):
-
-			a = random.choice(move)
-
-			if not (a.isnumeric()):
-
-				mvs.append(a)
-
-		return mvs
-
-	def remove(mvs):
-
-		rmv = []
-
-		for i in range(len(mvs)):
-
-			if (i > 0 and mvs[i][0] == mvs[i - 1][0]):
-
-				rmv.append(i - 1)
-
-		rmv.reverse()
-
-		for i in rmv:
-
-			mvs.pop(i)
-
-		rmv.clear()
-
-		for i in range(len(mvs)):
-
-			if (i > 2 and mvs[i][0] == 'r' and mvs[i - 1][0] == 'l' and mvs[i - 2][0] == 'r'):
-
-				rmv.append(i - 2)
-
-			if (i > 2 and mvs[i][0] == 'l' and mvs[i - 1][0] == 'r' and mvs[i - 2][0] == 'l'):
-
-				rmv.append(i - 2)
-
-			if (i > 2 and mvs[i][0] == 'u' and mvs[i - 1][0] == 'd' and mvs[i - 2][0] == 'u'):
-
-				rmv.append(i - 2)
-
-			if (i > 2 and mvs[i][0] == 'd' and mvs[i - 1][0] == 'u' and mvs[i - 2][0] == 'd'):
-
-				rmv.append(i - 2)
-
-			if (i > 2 and mvs[i][0] == 'f' and mvs[i - 1][0] == 'b' and mvs[i - 2][0] == 'f'):
-
-				rmv.append(i - 2)
-
-			if (i > 2 and mvs[i][0] == 'b' and mvs[i - 1][0] == 'f' and mvs[i - 2][0] == 'b'):
-
-				rmv.append(i - 2)
-
-		rmv.reverse()
-
-		for i in rmv:
-
-			mvs.pop(i)
-
-		return mvs
-
-	alo = []
-
-	while not (len(alo) == 25):
-
-		alo = complete(alo)
-
-		alo = remove(alo)
-
-	print ('Scramble:')
-
-	for i in alo:
-
-		print (i, end = ' ')
-
-	read(alo, Cube)
+	backPrime(Cube)
+	standing(Cube)
