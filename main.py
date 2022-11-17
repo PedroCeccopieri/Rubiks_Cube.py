@@ -1,9 +1,13 @@
+import os
+
 from moves import *
 from pieces import *
 from algorithms import *
 from verifier import verifyCube
 
 from cubeClass import Cube
+
+os.system("")
 
 print("""1 -> Verde
 2 -> Vermelho
