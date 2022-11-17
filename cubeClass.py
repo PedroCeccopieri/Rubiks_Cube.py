@@ -427,12 +427,12 @@ class Cube:
                 
                 match color:
 
-                    case 1: print('\x1b[0;30;42m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 2: print('\x1b[0;30;41m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 3: print('\x1b[0;30;44m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 4: print('\x1b[0;30;45m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 5: print('\x1b[0;30;47m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 6: print('\x1b[0;30;43m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 1: print('\x1b[48;2;0;255;0m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 2: print('\x1b[48;2;255;0;0m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 3: print('\x1b[48;2;0;0;255m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 4: print('\x1b[48;2;255;163;0m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 5: print('\x1b[48;2;255;255;255m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 6: print('\x1b[48;2;255;255;0m' + '  ' + '\x1b[0m' + ' ', end = '')
 
         for i in range(3):
             for j in range(9):
