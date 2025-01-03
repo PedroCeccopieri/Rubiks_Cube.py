@@ -3,7 +3,7 @@ import random
 from pieces import *
 from moves import *
 
-colors = ("Verde", "Vermelha", "Azul", "Laranja", "Branca", "Amarela", "1", "2", "3", "4", "5", "6")
+colors = ("Verde", "Vermelha", "Azul", "Laranja", "Branca", "Amarela", "0", "1", "2", "3", "4", "5")
 
 # All moves #
 move1 = ('R', 'L', 'U', 'D', 'F', 'B', 'M', 'S', 'E', 'x', 'y', 'z', 'Rw', 'Lw', 'Uw', 'Dw', 'Fw', 'Bw')
@@ -14,11 +14,12 @@ move = move1 + move2 + move3
 
 class Cube:
 
-    def __init__(self):
+    def __init__(self, s = ''):
         
-        self.Cube = self.__getCube()
+        self.Cube = self.__getCube(state = s)
 
-    def __getCube(self):
+
+    def __getCube(self, state = ''):
 
         def getFace(x):
 
@@ -50,21 +51,20 @@ class Cube:
             return face
 
         cube = []
-        choice = input()
 
-        if (choice == '#'):
+        if (state == '#'):
 
-            cube = [[[1, 1, 1], [1, 1, 1], [1, 1, 1]], # F
-                    [[2, 2, 2], [2, 2, 2], [2, 2, 2]], # R
-                    [[3, 3, 3], [3, 3, 3], [3, 3, 3]], # B
-                    [[4, 4, 4], [4, 4, 4], [4, 4, 4]], # L
-                    [[5, 5, 5], [5, 5, 5], [5, 5, 5]], # U
-                    [[6, 6, 6], [6, 6, 6], [6, 6, 6]]] # D
+            cube = [[[0, 0, 0], [0, 0, 0], [0, 0, 0]], # U
+                    [[1, 1, 1], [1, 1, 1], [1, 1, 1]], # L
+                    [[2, 2, 2], [2, 2, 2], [2, 2, 2]], # F
+                    [[3, 3, 3], [3, 3, 3], [3, 3, 3]], # R
+                    [[4, 4, 4], [4, 4, 4], [4, 4, 4]], # B
+                    [[5, 5, 5], [5, 5, 5], [5, 5, 5]]] # D
         else:
 
-            for i in range (6):
+            for i in [4,3,0,1,2,5]:
 
-                print ('Face ' + colors[i] + ':')
+                print('Face ' + colors[i] + ':')
                 cube.append(getFace(i))
 
         return cube
@@ -76,11 +76,11 @@ class Cube:
 
                 print(end = ' ')
 
-            print(self.Cube[4][i], end = '')
+            print(self.Cube[0][i], end = '')
             print()
 
         for i in range(3):
-            for j in [3,0,1,2]:
+            for j in range(1,5):
 
                 print(self.Cube[j][i], end = '')
 
@@ -102,49 +102,21 @@ class Cube:
 
         for pos in AllCP:
 
-            aux = []
-
-            for col in pos:
-
-                aux.append(self.Cube[col[0]][col[1]][col[2]])
-
-            if (sorted(aux) == list(color)):
+            if (sorted(self.getCornerColor(pos)) == color):
 
                 return pos
-    # Return the cornor in a position #
-    def getCornerColor(self, pos):
-
-        aux = []
-
-        for col in pos:
-
-            aux.append(self.Cube[col[0]][col[1]][col[2]])
-
-        return tuple(aux)
     # Return the position of a edge #
-    def getEdgesPos(self, color):
+    def getEdgePos(self, color):
 
         for pos in AllEP:
 
-            aux = []
-
-            for col in pos:
-
-                aux.append(self.Cube[col[0]][col[1]][col[2]])
-
-            if (sorted(aux) == list(color)):
+            if (sorted(self.getEdgeColor(pos)) == color):
 
                 return pos
-    # Return the edge in a position #
-    def getEdgesColor(self, pos):
+    # Return the piece in a position #
+    def getPieceColor(self, pos):
 
-        aux = []
-
-        for col in pos:
-
-            aux.append(self.Cube[col[0]][col[1]][col[2]])
-
-        return tuple(aux)
+        return [self.Cube[col[0]][col[1]][col[2]] for col in pos]
     # Return all corners orientation #
     def getCornersOrientation(self):
         
@@ -153,10 +125,10 @@ class Cube:
         bottom = []
 
         facesOrientation = self.getCentersOrientation()
-        faceUp = facesOrientation[4]
+        faceUp = facesOrientation[0]
         faceDown = facesOrientation[5]
 
-        for i in [2,0,4,6]:
+        for i in range(8):
 
             pos = AllCP[i]
 
@@ -164,26 +136,10 @@ class Cube:
 
                 if (self.getColor(sticker) == faceUp or self.getColor(sticker) == faceDown):
 
-                    match idx:
-
-                        case 0: top.append(3)
-                        case 1: top.append(2)
-                        case 2: top.append(1)
-
-        for i in [3,1,5,7]:
-
-            pos = AllCP[i]
-
-            for idx, sticker in enumerate(pos):
-
-                if (self.getColor(sticker) == faceUp or self.getColor(sticker) == faceDown):
-
-                    match idx:
-
-                        case 0: bottom.append(3)
-                        case 1: bottom.append(2)
-                        case 2: bottom.append(1)
-
+                    if (idx < 4):
+                        top.append(idx)
+                    else:
+                        bottom.append(idx)
 
         orientation.append(top)
         orientation.append(bottom)
@@ -198,57 +154,54 @@ class Cube:
         bottom = []
 
         facesOrientation = self.getCentersOrientation()
-        faceUp, faceDown = facesOrientation[4], facesOrientation[5]
-        faceFront, faceBack = facesOrientation[0], facesOrientation[2]
+        faceUp, faceDown = facesOrientation[0], facesOrientation[5]
+        faceFront, faceBack = facesOrientation[2], facesOrientation[4]
 
-        if (faceUp == 1 or faceDown == 1): pivot = [EWR, EWO, EYR, EYO]
-        elif (faceUp == 2 or faceDown == 2): pivot = [EYB, EWB, EYG, EWG]
-        elif (faceUp == 5 or faceDown == 5): pivot = [ERB, EOB, ERG, EOG]
+        if (faceUp == 2 or faceDown == 2): pivot = [sorted(i) for i in [EWR, EWO, EYR, EYO]]
+        elif (faceUp == 3 or faceDown == 3): pivot = [sorted(i) for i in [EYB, EWB, EYG, EWG]]
+        elif (faceUp == 0 or faceDown == 0): pivot = [sorted(i) for i in [EBR, EBO, EGR, EGO]]
 
-
-        for i in [2,5,8,10]:
+        for i in range(4):
 
             piece = (self.getColor(AllEP[i][0]), self.getColor(AllEP[i][1]))
 
-            if not (tuple(sorted(piece)) in pivot):
+            if not (sorted(piece) in pivot):
 
-                if (piece[1] == faceUp or piece[1] == faceDown): top.append(1)
+                if (piece[0] == faceUp or piece[0] == faceDown): top.append(1)
                 else: top.append(2)
 
             else:
 
-                if (piece[1] == faceFront or piece[1] == faceBack): top.append(1)
+                if (piece[0] == faceFront or piece[0] == faceBack): top.append(1)
                 else: top.append(2)
 
-        for i in [1,0,4,7]:
-
-            if (i == 4): piece = (self.getColor(AllEP[i][0]), self.getColor(AllEP[i][1]))
-            else: piece = (self.getColor(AllEP[i][1]), self.getColor(AllEP[i][0]))
-
-            if not (tuple(sorted(piece)) in pivot):
-
-                if (piece[1] == faceUp or piece[1] == faceDown): middle.append(1)
-                else: middle.append(2)
-
-            else:
-
-                if (piece[1] == faceFront or piece[1] == faceBack): middle.append(1)
-                else: middle.append(2)
-
-        for i in [3,6,9,11]:
+        for i in range(4,8):
 
             piece = (self.getColor(AllEP[i][0]), self.getColor(AllEP[i][1]))
 
-            if not (tuple(sorted(piece)) in pivot):
+            if not (sorted(piece) in pivot):
 
-                if (piece[1] == faceUp or piece[1] == faceDown): bottom.append(1)
+                if (piece[0] == faceUp or piece[0] == faceDown): middle.append(1)
+                else: middle.append(2)
+
+            else:
+
+                if (piece[0] == faceFront or piece[0] == faceBack): middle.append(1)
+                else: middle.append(2)
+
+        for i in range(8,12):
+
+            piece = (self.getColor(AllEP[i][0]), self.getColor(AllEP[i][1]))
+
+            if not (sorted(piece) in pivot):
+
+                if (piece[0] == faceUp or piece[0] == faceDown): bottom.append(1)
                 else: bottom.append(2)
 
             else:
 
-                if (piece[1] == faceFront or piece[1] == faceBack): bottom.append(1)
+                if (piece[0] == faceFront or piece[0] == faceBack): bottom.append(1)
                 else: bottom.append(2)
-
 
         orientation.append(top)
         orientation.append(middle)
@@ -258,7 +211,7 @@ class Cube:
     # Return all centers relative position #
     def getCentersOrientation(self):
         
-        orientation = [self.getColor([i,1,1]) for i in range(6)] # FRBLUD #
+        orientation = [self.getColor([i,1,1]) for i in range(6)] # ULFRBD #
         
         return orientation
 
@@ -358,9 +311,9 @@ class Cube:
 
     def read(self, mvs):
 
-        for i in range (len(mvs)):
+        for i in mvs:
 
-            match mvs[i]:
+            match i:
 
                 case 'R': right(self.Cube)
                 case 'L': left(self.Cube)
@@ -369,7 +322,7 @@ class Cube:
                 case 'F': front(self.Cube)
                 case 'B': back(self.Cube)
                 case 'M': middle(self.Cube)
-                case 'S': standing(self.Cube) 
+                case 'S': standing(self.Cube)
                 case 'E': equatorial(self.Cube)
                 case 'x': rotateCubeX(self.Cube)
                 case 'y': rotateCubeY(self.Cube)
@@ -427,24 +380,24 @@ class Cube:
                 
                 match color:
 
-                    case 1: print('\x1b[48;2;0;255;0m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 2: print('\x1b[48;2;255;0;0m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 3: print('\x1b[48;2;0;0;255m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 4: print('\x1b[48;2;255;163;0m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 5: print('\x1b[48;2;255;255;255m' + '  ' + '\x1b[0m' + ' ', end = '')
-                    case 6: print('\x1b[48;2;255;255;0m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 0: print('\x1b[48;2;255;255;255m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 1: print('\x1b[48;2;255;163;0m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 2: print('\x1b[48;2;0;255;0m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 3: print('\x1b[48;2;255;0;0m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 4: print('\x1b[48;2;0;0;255m' + '  ' + '\x1b[0m' + ' ', end = '')
+                    case 5: print('\x1b[48;2;255;255;0m' + '  ' + '\x1b[0m' + ' ', end = '')
 
         for i in range(3):
             for j in range(9):
 
                 print(end = ' ')
 
-            printLine(self.Cube[4][i])
+            printLine(self.Cube[0][i])
             print()
             print()
 
         for i in range(3):
-            for j in [3,0,1,2]:
+            for j in range(1,5):
 
                 printLine(self.Cube[j][i])
 

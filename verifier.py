@@ -5,13 +5,13 @@ def verifyPieces(cube):
 
 	ver = 0
 
-	cor = [tuple(sorted(cube.getCornerColor(i))) for i in AllCP]
+	cor = [sorted(cube.getPieceColor(i)) for i in AllCP]
 
-	if (sorted(cor) == sorted(list(AllCC))): ver += 1
+	if (cor == [sorted(i) for i in AllCC]): ver += 1
 
-	edg = [tuple(sorted(cube.getEdgesColor(i))) for i in AllEP]
+	edg = [sorted(cube.getPieceColor(i)) for i in AllEP]
 
-	if (sorted(edg) == sorted(list(AllEC))): ver += 1
+	if (edg == [sorted(i) for i in AllEC]): ver += 1
 
 	return ver == 2
 # Verify if all corners can be orientate #

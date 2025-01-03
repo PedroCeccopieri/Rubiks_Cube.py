@@ -4,23 +4,26 @@ from moves import *
 from pieces import *
 from algorithms import *
 from verifier import verifyCube
+# from dr import *
+from comutators import *
 
 from cubeClass import Cube
 
 os.system("")
 
-print("""1 -> Verde
-2 -> Vermelho
-3 -> Azul
-4 -> Laranja
-5 -> Branco
-6 -> Amarelo
+print("""0 -> Branco
+1 -> Laranja
+2 -> Verde
+3 -> Vermelho
+4 -> Azul
+5 -> Amarelo
 A orientação sempre é com a face verde para frente e a branca para cima
 """)
 
-cube = Cube()
+cube = Cube(s = '#')
 
 verifyCube(cube)
-#cube.printCube()
 cube.scramble()
+
+
 cube.printColors()

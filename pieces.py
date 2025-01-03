@@ -1,61 +1,83 @@
+def getOriginalPos(color):
+    if (len(color) == 3):
+        return AllCP[[sorted(i) for i in AllCC].index(sorted(color))]
+    else:
+        return AllEP[[sorted(i) for i in AllEC].index(sorted(color))]
+
+def getSpeffz(pos, corner = True):
+
+    if (corner):
+        
+        for p, k in zip(AllCP, AllCS):
+            if (pos in p):
+                return k[p.index(pos)]
+    else:
+
+        for p, k in zip(AllEP, AllES):
+            if (pos in p):
+                return k[p.index(pos)]
 
 # Corners #
 
-CGWO = (1, 4, 5) # Green, White, Orange #
-CGWR = (1, 2, 5) # Green, White, Red #
-CBWO = (3, 4, 5) # Blue, White, Orange #
-CBWR = (2, 3, 5) # Blue, White, Red #
+CWBO = [0, 4, 1] # White, Blue, Orange #
+CWBR = [0, 4, 3] # White, Blue, Red #
+CWGR = [0, 2, 3] # White, Green, Red #
+CWGO = [0, 2, 1] # White, Green, Orange#
+CYGO = [5, 2, 1] # Yellow, Green, Orange #
+CYGR = [5, 2, 3] # Yellow, Green, Red #
+CYBR = [5, 4, 3] # Yellow, Blue, Red #
+CYBO = [5, 4, 1] # Yellow, Blue, Orange #
 
-CGYO = (1, 4, 6) # Green, Yellow, Orange #
-CGYR = (1, 2, 6) # Green, Yellow, Red #
-CBYO = (3, 4, 6) # Blue, Yellow, Orange #
-CBYR = (2, 3, 6) # Blue, Yellow, Red #
+AllCC = [CWBO, CWBR, CWGR, CWGO, CYGO, CYGR, CYBR, CYBO] # All Corners Colors of the pieces #
 
-AllCC = (CGWO, CGWR, CBWO, CBWR, CGYO, CGYR, CBYO, CBYR) # All Corners Colors of the pieces #
+# Corners position #
+#                                        #     # Speffz # 
+P041 = [[0, 0, 0], [4, 0, 2], [1, 0, 0]] # UBL # ARE #
+P043 = [[0, 0, 2], [4, 0, 0], [3, 0, 2]] # UBR # BQN #
+P023 = [[0, 2, 2], [2, 0, 2], [3, 0, 0]] # UFR # CJM # 											
+P021 = [[0, 2, 0], [2, 0, 0], [1, 0, 2]] # UFL # DIF #
 
-# Corners position (x,y,z) #
-		  # z #		 # x #		# y #
-P125 = ((0, 0, 2), (1, 0, 0), (4, 2, 2)) # FRU #
-P126 = ((0, 2, 2), (1, 2, 0), (5, 0, 2)) # FRD #															
-P145 = ((0, 0, 0), (3, 0, 2), (4, 2, 0)) # FLU #
-P146 = ((0, 2, 0), (3, 2, 2), (5, 0, 0)) # FLD #
-P325 = ((2, 0, 0), (1, 0, 2), (4, 0, 2)) # BRU #
-P326 = ((2, 2, 0), (1, 2, 2), (5, 2, 2)) # BRD #
-P345 = ((2, 0, 2), (3, 0, 0), (4, 0, 0)) # BLU #
-P346 = ((2, 2, 2), (3, 2, 0), (5, 2, 0)) # BLD #
+P521 = [[5, 0, 0], [2, 2, 0], [1, 2, 2]] # DFL # ULG #
+P523 = [[5, 0, 2], [2, 2, 2], [3, 2, 0]] # DFR # VKP #
+P543 = [[5, 2, 2], [4, 2, 0], [3, 2, 2]] # DBR # WTO #
+P541 = [[5, 2, 0], [4, 2, 2], [1, 2, 0]] # DBL # XSH #
 
-AllCP = (P125, P126, P145, P146, P325, P326, P345, P346) # All Corners Position in the cube #
+AllCP = [P041, P043, P023, P021, P521, P523, P543, P541] # All Corners Position in the cube #
+AllCS = [["A", "R", "E"], ["B", "Q", "N"], ["C", "J", 'M'], ["D", "I", "F"], ["U", "L", "G"], ["V", "K", "P"], ["W", "T", "O"], ["X", "S", "H"]]
 
 # Edges #
 
-EWG = (1, 5) # Green, White #
-EWR = (2, 5) # Red, White #
-EWB = (3, 5) # Blue, White #
-EWO = (4, 5) # Orange, White #
+EWB = [0, 4] # White, Blue #
+EWR = [0, 3] # White, Red #
+EWG = [0, 2] # White, Green #
+EWO = [0, 1] # White, Orange #
+EGO = [2, 1] # Green, Orange #
+EGR = [2, 3] # Green, Red #
+EBR = [4, 3] # Blue, Red #
+EBO = [4, 1] # Blue, Orange #
+EYG = [5, 2] # Yellow, Green #
+EYR = [5, 3] # Yellow, Red #
+EYB = [5, 4] # Yellow, Blue #
+EYO = [5, 1] # Yellow, Orange #
 
-ERB = (2, 3) # Red, Blue #
-EOB = (3, 4) # Orange, Blue #
-ERG = (1, 2) # Red, Green #
-EOG = (1, 4) # Orange, Green #
+AllEC = [EWB, EWR, EWG, EWO, EGO, EGR, EBR, EBO, EYG, EYR, EYB, EYO] # All Edges Colors of the Pieces #
 
-EYG = (1, 6) # Green, Yellow #
-EYR = (2, 6) # Red, Yellow #
-EYB = (3, 6) # Blue, Yellow #
-EYO = (4, 6) # Orange, Yellow #
+# Edges position #
+#                            #    # Speffz # 
+P04 = [[0, 0, 1], [4, 0, 1]] # UB # AQ #
+P03 = [[0, 1, 2], [3, 0 ,1]] # UR # BM #
+P02 = [[0, 2, 1], [2, 0, 1]] # UF # CI #
+P01 = [[0, 1, 0], [1, 0, 1]] # UL # DE #
 
-AllEC = (EWG, EWR, EWB, EWO, ERB, EOB, ERG, EOG, EYG, EYR, EYB, EYO) # All Edges Colors of the Pieces #
+P21 = [[2, 1, 0], [1, 1, 2]] # FL # LF #
+P23 = [[2, 1, 2], [3, 1, 0]] # FR # JP #
+P43 = [[4, 1, 0], [3, 1, 2]] # BR # TN #
+P41 = [[4, 1, 2], [1, 1, 0]] # BL # RH #
 
-P12 = ((0, 1, 2), (1, 1, 0)) # FR # 0
-P14 = ((0, 1, 0), (3, 1, 2)) # FL # 1
-P15 = ((0, 0, 1), (4, 2, 1)) # FU # 2
-P16 = ((0, 2, 1), (5, 0, 1)) # FD # 3
-P23 = ((1, 1, 2), (2, 1, 0)) # RB # 4
-P25 = ((1, 0, 1), (4, 1, 2)) # RU # 5
-P26 = ((1, 2, 1), (5, 1, 2)) # RD # 6
-P34 = ((2, 1, 2), (3, 1, 0)) # BL # 7
-P35 = ((2, 0, 1), (4, 0, 1)) # BU # 8
-P36 = ((2, 2, 1), (5, 2, 1)) # BD # 9
-P45 = ((3, 0, 1), (4, 1, 0)) # LU # 10
-P46 = ((3, 2, 1), (5, 1, 0)) # LD # 11
+P52 = [[5, 0, 1], [2, 2, 1]] # DF # UK #
+P53 = [[5, 1, 2], [3, 2, 1]] # DR # VO #
+P54 = [[5, 2, 1], [4, 2, 1]] # DB # WS #
+P51 = [[5, 1, 0], [1, 2, 1]] # DL # XG #
 
-AllEP = (P12, P14, P15, P16, P23, P25, P26, P34, P35, P36, P45, P46) # All Edges Position in the cube #
+AllEP = [P04, P03, P02, P01, P21, P23, P43, P41, P52, P53, P54, P51] # All Edges Position in the cube #
+AllES = [["A", "Q"], ["B", "M"], ["C", "I"], ["D", "E"], ["L", "F"], ["J", "P"], ["T", "N"], ["R", "H"], ["U", "K"], ["V", "O"], ["W", "S"], ["X", "G"]]
